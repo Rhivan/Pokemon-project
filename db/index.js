@@ -1,9 +1,12 @@
+var cors = require('cors');
 const express = require("express");
 const dbo = require("./db");
 const app = express();
+app.use(cors())
 const port = 4444;
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+
 
 dbo.connectToServer();
 
@@ -29,7 +32,8 @@ app.get("/pokemon/list", function (req, res) {
       } else {
         res.json(result);
       }
-    });
+    })
+    .catch(err=>res.json(err));
     /*
     Bref lisez la doc, 
     il y a plein de manières de faire ce qu'on veut :) 
@@ -51,7 +55,8 @@ app.post('/pokemon/insert', jsonParser, (req, res) => {
       } else {
         res.json(result);
       }
-    });
+    })
+    .catch(err=>res.json(err));
 
   //on code ensuite l'insertion dans mongoDB, lisez la doc hehe !!
   res.json(body);
@@ -70,7 +75,8 @@ app.delete('/pokemon/delete', jsonParser, (req, res) => {
       } else {
         res.json(result);
       }
-    });
+    })
+    .catch(err=>res.json(err));
 });
 
 app.post('/pokemon/update', jsonParser, (req, res) => {
@@ -93,7 +99,8 @@ app.post('/pokemon/update', jsonParser, (req, res) => {
     } else {
       res.json(result);
     }
-  });
+  })
+  .catch(err=>res.json(err));
 
 });
 
@@ -114,7 +121,8 @@ app.get("/pokedex/list", function (req, res) {
       } else {
         res.json(result);
       }
-    });
+    })
+    .catch(err=>res.json(err));
     /*
     Bref lisez la doc, 
     il y a plein de manières de faire ce qu'on veut :) 
@@ -135,10 +143,8 @@ app.post('/pokedex/insert', jsonParser, (req, res) => {
       } else {
         res.json(result);
       }
-    });
-
-  //on code ensuite l'insertion dans mongoDB, lisez la doc hehe !!
-  res.json(body);
+    })
+    .catch(err=>res.json(err));
 });
 
 app.delete('/pokedex/delete', jsonParser, (req, res) => {
@@ -154,7 +160,8 @@ app.delete('/pokedex/delete', jsonParser, (req, res) => {
       } else {
         res.json(result);
       }
-    });
+    })
+    .catch(err=>res.json(err));
 });
 
 /*---------TYPES----------*/
@@ -170,7 +177,8 @@ app.get("/types/list", function (req, res) {
       } else {
         res.json(result);
       }
-    });
+    })
+    .catch(err=>res.json(err));
     
 });
 
@@ -187,9 +195,10 @@ app.post('/types/insert', jsonParser, (req, res) => {
       } else {
         res.json(result);
       }
-    });
+    })
+    .catch(err=>res.json(err));
 
-  res.json(body);
+  
 });
 
 app.post('/types/update', jsonParser, (req, res) => {
@@ -212,7 +221,8 @@ app.post('/types/update', jsonParser, (req, res) => {
     } else {
       res.json(result);
     }
-  });
+  })
+  .catch(err=>res.json(err));
 
 });
 
@@ -229,5 +239,6 @@ app.delete('/types/delete', jsonParser, (req, res) => {
       } else {
         res.json(result);
       }
-    });
+    })
+    .catch(err=>res.json(err));
 });
